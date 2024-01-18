@@ -17,6 +17,7 @@
 #include <vector>
 
 namespace awk {
+namespace impl {
 // First there is some helper:
 
 template<std::size_t max_length>
@@ -931,8 +932,10 @@ class awk_engine {
     }
 };
 
-template<fixed_string<100> expr>
-constexpr auto operator""_awk() -> awk_engine {
+} // namespace impl
+
+template<impl::fixed_string<100> expr>
+constexpr auto operator""_awk() -> impl::awk_engine {
     return { expr.sv() };
 };
 
