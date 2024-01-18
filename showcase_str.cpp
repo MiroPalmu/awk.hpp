@@ -1,15 +1,14 @@
-#include <print>
-#include <string>
 #include <iostream>
+#include <print>
 #include <sstream>
+#include <string>
 
 #include "awk.hpp"
 
 const std::string csv =
-R"(A B C|[]|E F G
+    R"(A B C|[]|E F G
 A B C|&&|E F G
 A B C|~~|E F G)";
-
 
 int main() {
     using namespace awk;

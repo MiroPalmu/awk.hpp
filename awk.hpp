@@ -80,11 +80,11 @@ constexpr std::optional<double> parse_number(const std::string_view str) {
     return minus ? -result : result;
 }
 
-static_assert([]{ return not parse_number("abc").has_value(); }());
-static_assert([]{ return parse_number("11") > 10.9; }());
-static_assert([]{ return parse_number("-2") < -1.9; }());
-static_assert([]{ return parse_number("0") == 0; }());
-static_assert([]{ return parse_number("1.2") > 1.1; }());
+static_assert([] { return not parse_number("abc").has_value(); }());
+static_assert([] { return parse_number("11") > 10.9; }());
+static_assert([] { return parse_number("-2") < -1.9; }());
+static_assert([] { return parse_number("0") == 0; }());
+static_assert([] { return parse_number("1.2") > 1.1; }());
 
 // helper type for the visitor #4
 template<class... Ts>
@@ -641,7 +641,7 @@ class awk_engine {
         // Index 0 was reserved for FS, 1 for OFS and 2 for NF
         using namespace std::literals;
         // Use empty string as "empty" variable
-        auto memory       = std::vector<var_t>{ " \t,"s, " "s, 1.0};
+        auto memory       = std::vector<var_t>{ " \t,"s, " "s, 1.0 };
         auto get_variable = [&](const std::size_t i) -> var_t {
             // Fill until we find what we are looking for
             while (memory.size() <= i) memory.push_back(""s);
