@@ -681,7 +681,10 @@ class awk_engine {
                 return (lhs == '+') and (rhs == '+');
             };
 
-            std::ranges::unique(line, comp, project);
+            {
+                const auto [b, e] = std::ranges::unique(line, comp, project);
+                line.erase(b, e);
+            }
             // Now there must be at most one FS in row
 
             auto begin_index = line.find_first_not_of(FS);
