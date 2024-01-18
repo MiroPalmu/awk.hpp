@@ -450,6 +450,8 @@ constexpr std::vector<std::string> get_all_variable_names(const std::span<awk_as
     append_unique_name("FS");
     // and 1 for OFS
     append_unique_name("OFS");
+    // and 2 for NF
+    append_unique_name("NF");
 
     auto append_names =
         overloaded{ [&](const awk_ast::assignment& a) {
@@ -635,10 +637,10 @@ class awk_engine {
                 return current_fields[i];
         };
 
-        // Index 0 was reserved for FS and 1 for OFS
+        // Index 0 was reserved for FS, 1 for OFS and 2 for NF
         using namespace std::literals;
         // Use empty string as "empty" variable
-        auto memory       = std::vector<var_t>{ " \t"s, " "s };
+        auto memory       = std::vector<var_t>{ " \t,"s, " "s, 1.0};
         auto get_variable = [&](const std::size_t i) -> var_t {
             // Fill until we find what we are looking for
             while (memory.size() <= i) memory.push_back(""s);
@@ -918,6 +920,9 @@ class awk_engine {
         execute_bytes(awk.begin_code_);
         for (const auto line : str | std::views::split('\n')) {
             set_fields(std::string{ line.begin(), line.end() });
+            // index 2 is reserved for NF, assume it is a number
+            const auto NF = std::get<double>(get_variable(2));
+            if (current_fields.size() < NF) continue;
             execute_bytes(awk.command_code_);
         }
         execute_bytes(awk.end_code_);
