@@ -733,6 +733,7 @@ class awk_engine {
             if (args.size() == 1) {
                 assert_to_be_data(args.front());
                 std::visit(printer, std::get<data>(args.front()));
+                output << '\n';
                 return;
             }
 
