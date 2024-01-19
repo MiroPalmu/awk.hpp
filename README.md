@@ -68,7 +68,9 @@ and they can be accessed using the name of variable in any part of the program,
 if the variable does not exists then it is created as empty string.
 
 If a variable name can be parsed as number then it is a number.
-Regex matching numbers is `[0-9]+(\.[0-9]*)?`.
+Numbers are in form `[-]A[.]B` where square brackets denote optionality and
+`A` and `B` are zero or more characters in range `[0-9]` but such that
+at least other has to be present.
 
 String literals can be created by enclosing them with ' characters, e.g. `'I am a string'`.
 Escaping ' character in string is not implemented and due to hacks used in implementation,

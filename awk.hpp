@@ -55,8 +55,9 @@ constexpr std::optional<double> parse_number(const std::string_view str) {
 
     const auto minus = str.front() == '-';
 
-    auto is_digit = [](const char c) { return c >= '0' && c <= '9'; };
-    auto decimals = double{ 0 };
+    auto is_digit          = [](const char c) { return c >= '0' && c <= '9'; };
+    auto decimals          = double{ 0 };
+    auto at_least_one_digit = false;
 
     for (const auto c : str | std::views::drop(minus)) {
         if (c == '.') {
@@ -68,6 +69,7 @@ constexpr std::optional<double> parse_number(const std::string_view str) {
         }
 
         if (!is_digit(c)) { return {}; }
+        at_least_one_digit = true;
 
         if (not decimals) {
             result = result * 10 + (c - '0');
@@ -76,11 +78,15 @@ constexpr std::optional<double> parse_number(const std::string_view str) {
             decimals = 0.1 * decimals;
         }
     }
+    if (not at_least_one_digit) return {};
 
     return minus ? -result : result;
 }
 
 static_assert([] { return not parse_number("abc").has_value(); }());
+static_assert([] { return not parse_number(".").has_value(); }());
+static_assert([] { return parse_number("1.") == 1; }());
+static_assert([] { return parse_number(".1") > 0.09; }());
 static_assert([] { return parse_number("11") > 10.9; }());
 static_assert([] { return parse_number("-2") < -1.9; }());
 static_assert([] { return parse_number("0") == 0; }());
