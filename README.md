@@ -1,9 +1,9 @@
 # awk.hpp
-~Zero-overhead minimal awk library, meant as proof of concept and not for actual use,
-i.e. it is not tested, and there are no plans to continue developing it.
-~Zero-overhead means that the awk program is parsed and compiled to implementation detail
+Awk implemented as C++ library, meant as proof of concept of EDSL (embedded domain spesific language)
+technique and not for actual use, i.e. it is not tested, and there are no plans to continue developing it.
+EDSL technique tested is that EDSL program is parsed and compiled to implementation detail
 byte code during compile time. This byte code is stored to executable which then is
-executed during runtime.
+executed during runtime. This library calls this technique a EDSL compilation.
 
 # Example usage
 
