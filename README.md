@@ -5,6 +5,26 @@ EDSL technique tested is that EDSL program is parsed and compiled to implementat
 byte code during compile time. This byte code is stored to executable which then is
 executed during runtime. This library calls this technique a EDSL compilation.
 
+## Results
+
+Benefits of EDSL compilation:
+
+- more expressive language for spesific task
+
+Drawbacks of EDSL compilation:
+
+- implementation complexity (many cases have to invent new byte code)
+- executing byte code might be slower than hand crafted algorithm
+
+One might think that moving the parsing and compilation of EDSL to compile time
+would have performance benefits with cost of longer compile times but this is generally not true,
+because usually the parsing and compilation process is not that expensive and even if it is called
+inside a hot loop it can done before the loop or the compiler moves it from the loop for you.
+
+However there is the benefit of getting compilation errors of the EDSL during compilation time
+and not during a runtime. This makes EDSL more equivalent with normal code and one could think
+that libraries that implement EDSL compile time compilation are some sort of extensions of a compiler.
+
 # Example usage
 
 Awk engine is created using UDL `_awk` which is usable after `using namespace awk`
