@@ -161,18 +161,6 @@ using token = std::variant<null,
                            equal_plus,
                            equal_minus>;
 
-enum class token_flags : std::size_t {
-    null_e              = 1 << 0,
-    semicolon_e         = 1 << 1,
-    print_e             = 1 << 2,
-    field_e             = 1 << 3,
-    unclassified_word_e = 1 << 4,
-    string_literal_e    = 1 << 5,
-    equal_e             = 1 << 6,
-    equal_plus_e        = 1 << 7,
-    equal_minus_e       = 1 << 8
-};
-
 constexpr auto internals_of_curly_brackets(const std::string_view str)
     -> std::vector<std::string_view> {
     auto lhs_indecies = std::vector<std::string_view::size_type>{};
